@@ -1,4 +1,9 @@
 node {
+    stage("Checkout Source Code"){
+        echo "Checkout Source Code"
+        checkout scm
+    }
+    
     stage("Build Source Code"){
         echo "Building Source Code"
         sh "mvn package -DskipTests"
