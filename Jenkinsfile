@@ -3,15 +3,15 @@ node {
         echo "Checkout Source Code"
         checkout scm
     }
-    
+
     stage("Build Source Code"){
         echo "Building Source Code"
-        sh "mvn package -DskipTests"
+        sh "mvnw package -DskipTests"
     }
 
     stage("Run UNIT-Tests"){
         echo "Runnning Unit Tests"
-        sh "mvn test"
+        sh "mvnw test"
     }
     
     stage("Deploy to server"){
