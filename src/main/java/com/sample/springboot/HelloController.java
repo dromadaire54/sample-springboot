@@ -6,9 +6,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
+	private final GreetingService greetingService;
+
+	public HelloController(GreetingService greetingService) {
+		this.greetingService = greetingService;
+	}
+
 	@GetMapping("/")
 	public String index() {
-		return "Hello cesi classroom";
+		return this.greetingService.greet();
 	}
 
 }
