@@ -38,4 +38,19 @@
 		</plugins>
 	</build>
 
+	<profile>
+        <id>reposilite</id>
+		<distributionManagement>
+			<repository>
+				<id>reposilite-repository-releases</id>
+				<name>Reposilite Repository</name>
+				<url>http://172.16.44.90:8081/releases</url>
+			</repository>
+			<snapshotRepository>
+  				<id>reposilite-repository-snapshots</id>
+  				<name>Reposilite Repository</name>
+  				<url>http://172.16.44.90:8081/snapshots</url>
+			</snapshotRepository>
+		</distributionManagement>
+	</profile>
 </project>

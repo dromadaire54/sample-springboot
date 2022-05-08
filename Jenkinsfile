@@ -4,18 +4,21 @@ node {
         checkout scm
     }
 
-    stage("Build Source Code"){
-        echo "Building Source Code"
-        sh "mvnw package -DskipTests"
+    stage("Run unit tests"){
+        echo "Runnning Unit Tests"
+        sh './mvn -s $MAVEN_SETTINGS test'
     }
 
-    stage("Run UNIT-Tests"){
-        echo "Runnning Unit Tests"
-        sh "mvnw test"
+    stage("Build Source Code"){
+        echo "Building Source Code"
+        sh './mvnw -s $MAVEN_SETTINGS package -DskipTests'
+        
     }
     
-    stage("Deploy to server"){
+    stage("Deploy to registry"){
         echo "deploy the application to the server"
-        sh "scp target/spring-boot-0.0.1-SNAPSHOT.jar dromadaire@192.168.1.15:/home/dromadaire/applis/software/sample-springboot"
+        [configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+            sh './mvnw -s $MAVEN_SETTINGS -Pdeposilite deploy'
+        }
     }
 }
