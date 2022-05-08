@@ -1,12 +1,27 @@
+def VERSION
+def TAGGED
 node {
     stage("Checkout Source Code"){
         echo "Checkout Source Code"
         checkout scm
+
+        if (env.TAG_NAME) {
+            VERSION = env.TAG_NAME.substring(1)
+            TAGGED = true
+        } else {
+            TAGGED = false
+        }
     }
 
     stage("Run unit tests"){
         echo "Runnning Unit Tests"
         sh 'mvn test'
+    }
+
+    stage("Prepare Release") {
+        if (TAGGED) {
+            sh 'mvn versions:set -DnewVersion=$VERSION'
+        }
     }
 
     stage("Build Source Code"){
