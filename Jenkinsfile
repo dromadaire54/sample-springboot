@@ -8,4 +8,9 @@ node {
         echo "Running unit tests"
         sh "mvn test"
     }
+
+    stage("Build project") {
+        echo "Build project"
+        sh "mvn package -DskipTests"
+    }
 }
