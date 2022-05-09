@@ -41,4 +41,11 @@ node {
             sh "mvn -s $MAVEN_SETTINGS -Preposilite deploy"
         }
     }
+
+    stage("Update integration") {
+        echo "Get the latest version in the registry and restart the service"
+        sh '''
+            ssh root@172.16.44.90 /opt/sample-springboot/update.sh
+        '''
+    }    
 }
