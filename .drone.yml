@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: test
+  image: maven:3.6.3-openjdk-11
+  commands:
+  - mvn install -DskipTests=true
+  - mvn test -B
+
+- name: build
+  image: maven:3.6.3-openjdk-11
+  commands:
+  - mvn package -DskipTests=true
