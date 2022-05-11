@@ -13,3 +13,16 @@ steps:
   image: maven:3.6.3-openjdk-11
   commands:
   - mvn package -DskipTests=true
+
+- name: deploy
+  image: maven:3.6.3-openjdk-11
+  volumes:
+  - name: settings
+    path: /root/.m2/
+  commands:
+  - mvn deploy -Preposilite
+
+volumes:
+- name: settings
+  host:
+    path: /root/maven-settings
