@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mariadb:10.8.2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+    volumes:
+      - sample-data:/var/lib/mysql
+      - ./fixtures:/docker-entrypoint-initdb.d
+
+  sample:
+    build: .
+    depends_on:
+      - db
+    #image: sample
+    ports:
+      - 8989:8989
+    restart: on-failure
+    env_file:
+      - ./.env.list
+
+volumes:
+  sample-data:
